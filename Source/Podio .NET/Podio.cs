@@ -21,8 +21,8 @@ namespace PodioAPI
         protected string ClientSecret { get; set; }
         public OAuth OAuth { get; set; }
         public IAuthStore AuthStore { get; set; }
-        public int RateLimit { get; private set; }
-        public int RateLimitRemaining { get; private set; }
+        public long RateLimit { get; private set; }
+        public long RateLimitRemaining { get; private set; }
         protected virtual string ApiUrl { get; set; }
 
         private static readonly HttpClient HttpClient;
@@ -128,9 +128,9 @@ namespace PodioAPI
 
             // Get rate limits from header values
             if (response.Headers.Contains("X-Rate-Limit-Remaining"))
-                RateLimitRemaining = int.Parse(response.Headers.GetValues("X-Rate-Limit-Remaining").First());
+                RateLimitRemaining = long.Parse(response.Headers.GetValues("X-Rate-Limit-Remaining").First());
             if (response.Headers.Contains("X-Rate-Limit-Limit"))
-                RateLimit = int.Parse(response.Headers.GetValues("X-Rate-Limit-Limit").First());
+                RateLimit = long.Parse(response.Headers.GetValues("X-Rate-Limit-Limit").First());
 
             if (response.IsSuccessStatusCode)
             {
@@ -182,7 +182,7 @@ namespace PodioAPI
                         else
                         {
                             OAuth = null;
-                            throw new PodioAuthorizationException((int)response.StatusCode, podioError);
+                            throw new PodioAuthorizationException((long)response.StatusCode, podioError);
                         }
                     }
                     else
@@ -193,7 +193,7 @@ namespace PodioAPI
                 }
                 catch (JsonException ex)
                 {
-                    throw new PodioInvalidJsonException((int)response.StatusCode, new PodioError
+                    throw new PodioInvalidJsonException((long)response.StatusCode, new PodioError
                     {
                         Error = "Error response is not a valid Json string.",
                         ErrorDescription = ex.ToString(),
@@ -231,7 +231,7 @@ namespace PodioAPI
 
         private void ProcessErrorResponse(HttpStatusCode statusCode, PodioError podioError)
         {
-            var status = (int)statusCode;
+            var status = (long)statusCode;
            
             switch (status)
             {
@@ -278,7 +278,7 @@ namespace PodioAPI
         /// <param name="appId">AppId</param>
         /// <param name="appToken">AppToken</param>
         /// <returns>PodioOAuth object with OAuth data</returns>
-        public async Task<PodioOAuth> AuthenticateWithApp(int appId, string appToken)
+        public async Task<PodioOAuth> AuthenticateWithApp(long appId, string appToken)
         {
             var authRequest = new Dictionary<string, string>()
             {

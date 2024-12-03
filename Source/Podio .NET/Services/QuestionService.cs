@@ -19,7 +19,8 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="questionId"></param>
         /// <param name="questionOptionId"></param>
-        public async Task<dynamic> AnswerQuestion(int questionId, int questionOptionId)
+        public async Task<dynamic> AnswerQuestion(long
+            questionId, long questionOptionId)
         {
             string url = string.Format("/question/{0}/", questionId);
             dynamic requestData = new
@@ -35,7 +36,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="questionId"></param>
         /// <returns></returns>
-        public async Task<List<Answer>> GetAnswers(int questionId)
+        public async Task<List<Answer>> GetAnswers(long questionId)
         {
             string url = string.Format("/question/{0}/", questionId);
             return  await _podio.Get<List<Answer>>(url);
@@ -50,7 +51,7 @@ namespace PodioAPI.Services
         /// <param name="questionText">The text of the question.</param>
         /// <param name="options">The list of text for the option</param>
         /// <returns></returns>
-        public async Task<int> CreateQuestion(string refType, int refId, string questionText, List<string> options)
+        public async Task<long> CreateQuestion(string refType, long refId, string questionText, List<string> options)
         {
             string url = string.Format("/question/{0}/{1}/", refType, refId);
             dynamic requestData = new
@@ -59,7 +60,7 @@ namespace PodioAPI.Services
                 options = options
             };
             dynamic response =  await _podio.Post<dynamic>(url, requestData);
-            return (int) response["question_id"];
+            return (long) response["question_id"];
         }
     }
 }

@@ -10,7 +10,7 @@ namespace PodioAPI.Utils
 {
     internal class Utility
     {
-        internal static string ArrayToCSV(int[] array, string splitter = ",")
+        internal static string ArrayToCSV(long[] array, string splitter = ",")
         {
             if (array != null && array.Length > 0)
                 return string.Join(splitter, array);

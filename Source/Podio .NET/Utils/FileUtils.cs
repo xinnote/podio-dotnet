@@ -15,6 +15,7 @@ namespace PodioAPI.Utils
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true))
             {
                 // Do a blocking read
+                
                 int index = 0;
                 long fileLength = fs.Length;
 
