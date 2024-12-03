@@ -15,9 +15,9 @@
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-    <RootNamespace>Podio.Async</RootNamespace>
-    <Authors>Podio.Async</Authors>
-    <Version>2.0.0</Version>
+    <RootNamespace>Podio.Async.Longs</RootNamespace>
+    <Authors>xinnote</Authors>
+    <Version>2.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
